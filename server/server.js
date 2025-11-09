@@ -14,11 +14,11 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: '*' } });
 
-// Serve static files from client folder (handles /index.html automatically)
+// Serve static files from client folder (FIXED PATH!)
 app.use(express.static(path.join(__dirname, '../client')));
 
-// Specific root route (safer than wildcard)
-app.get('/', (req, res) => {
+// Fallback to index.html for client-side routing (if needed)
+app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
@@ -73,5 +73,5 @@ io.on('connection', (socket) => {
 
 const PORT = 3000;
 server.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+    console.log(`Server running at https://flamdrawingcanvas.netlify.app`);
 });
